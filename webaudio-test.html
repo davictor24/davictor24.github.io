@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>WebAudio test</title>
+	</head>
+	<body>
+		<h1>WebAudio test for iOS</h1>
+		<p>An AudioContext which plays sound should be suspended in the background and one that doesn't should continue running.</p>
+
+		<button id="with-sound">Create AudioContext with sound</button>
+		<button id="without-sound">Create AudioContext without sound</button>
+		<button id="stop">Stop</button>
+		<p>AudioContext time: <span id="time"></span></p>
+
+		<script>
+			const withSoundBtn = document.getElementById("with-sound");
+			const withoutSoundBtn = document.getElementById("without-sound");
+			const stopBtn = document.getElementById("stop");
+			const timeDisplay = document.getElementById("time");
+			let audioContext;
+
+			withSoundBtn.addEventListener('click', () => {
+				stopAudioContext();
+				audioContext = new AudioContext();
+				const whiteNoise = createWhiteNoise();
+				whiteNoise.connect(audioContext.destination);
+			});
+
+			withoutSoundBtn.addEventListener('click', () => {
+				stopAudioContext();
+				audioContext = new AudioContext();
+				const whiteNoise = createWhiteNoise();
+				const destination = audioContext.createMediaStreamDestination();
+				whiteNoise.connect(destination);
+			});
+
+			stopBtn.addEventListener('click', () => {
+				stopAudioContext();
+			});
+
+			function stopAudioContext() {
+				if (audioContext) {
+					audioContext.close();
+					audioContext = undefined;
+				}
+			}
+
+			function createWhiteNoise() {
+				const bufferSize = 2 * audioContext.sampleRate;
+				const noiseBuffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+				for (let i = 0; i < bufferSize; i++) {
+					noiseBuffer.getChannelData(0)[i] = Math.random() * 2 - 1;
+				}
+				const whiteNoise = audioContext.createBufferSource();
+				whiteNoise.buffer = noiseBuffer;
+				whiteNoise.loop = true;
+				whiteNoise.start(0);
+				return whiteNoise;
+			}
+
+			function displayTime() {
+				if (audioContext && audioContext.state != "closed") {
+					timeDisplay.innerHTML = audioContext.currentTime.toFixed(3);
+				} else {
+					timeDisplay.innerHTML = "No context exists";
+				}
+				requestAnimationFrame(displayTime);
+			}
+
+			displayTime();
+		</script>
+	</body>
+</html>
