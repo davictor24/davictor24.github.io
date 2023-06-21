@@ -13,11 +13,10 @@
         <a href="index.html">Click here to navigate</a>
 
         <script>
-            let url = "material-minimal-shape-8k-lv.jpg?v=" + performance.now();
             let imageDisplay = document.getElementById("image-display");
             let imageNavigation = document.getElementById("image-navigation");
-            imageDisplay.src = url;
-            imageNavigation.href = url;
+            imageDisplay.src = "material-minimal-shape-8k-lv.jpg?a=" + performance.now();
+            imageNavigation.href = "material-minimal-shape-8k-lv.jpg?b=" + performance.now();
         </script>
     </body>
 </html>
