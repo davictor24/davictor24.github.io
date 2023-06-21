@@ -1,14 +1,5 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <script>
-            let url = "material-minimal-shape-8k-lv.jpg?v=" + performance.now();
-            let imageDisplay = document.getElementById("image-display");
-            let imageNavigation = document.getElementById("image-navigation");
-            imageDisplay.src = url;
-            imageNavigation.href = url;
-        </script>
-    </head>
     <body>
         <h1>Test navigation</h1>
         
@@ -19,6 +10,14 @@
         <a id="image-navigation">Click here to navigate</a><br><br>
 
         <h2>Navigation to index.html</h2>
-        <a href="index.html">Click here to navigate</a><br><br>
+        <a href="index.html">Click here to navigate</a>
+
+        <script>
+            let url = "material-minimal-shape-8k-lv.jpg?v=" + performance.now();
+            let imageDisplay = document.getElementById("image-display");
+            let imageNavigation = document.getElementById("image-navigation");
+            imageDisplay.src = url;
+            imageNavigation.href = url;
+        </script>
     </body>
 </html>
