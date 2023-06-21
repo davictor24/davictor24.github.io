@@ -1,12 +1,22 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        let url = "material-minimal-shape-8k-lv.jpg?v=" + performance.now();
+        let imageDisplay = document.getElementById("image-display");
+        let imageNavigation = document.getElementById("image-navigation");
+        imageDisplay.src = url;
+        imageNavigation.href = url;
+    </head>
     <body>
         <h1>Test navigation</h1>
         
         <h2>Test photo</h2>
-        <img src="material-minimal-shape-8k-lv.jpg" style="max-height:100%;max-width:100%;"><br><br>
+        <img id="image-display" style="max-height:100%;max-width:100%;"><br><br>
       
         <h2>Navigation to test photo</h2>
-        <a href="material-minimal-shape-8k-lv.jpg">Click here to navigate</a>
+        <a id="image-navigation">Click here to navigate</a><br><br>
+
+        <h2>Navigation to index.html</h2>
+        <a href="index.html">Click here to navigate</a><br><br>
     </body>
 </html>
